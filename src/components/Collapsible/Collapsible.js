@@ -7,7 +7,7 @@ const Collapsible = (props) => {
       <p>{props?.hours}</p>
       <p>Latitude: {props?.lat}</p>
       <p>Longitude: {props?.long}</p>
-      <p>{props?.tags}</p>
+      <p>{props?.genre}</p>
     </div>
   );
 };

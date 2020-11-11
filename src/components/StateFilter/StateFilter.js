@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import './StatePicker.css';
+import './StateFilter.css';
 
-const StatePicker = ({ stateInput, setStateInput }) => {
+const StateFilter = ({ stateFilter, setStateFilter }) => {
   return (
     <div className='state-picker-container'>
       <select
-        defaultValue={stateInput}
-        onChange={(e) => setStateInput(e.target.value)}>
-        <option value=''>All states</option>
+        value={stateFilter}
+        onChange={(e) => setStateFilter(e.target.value)}>
+        <option value='' disabled>
+          All states
+        </option>
         <option value='AL'>Alabama</option>
         <option value='AK'>Alaska</option>
         <option value='AZ'>Arizona</option>
@@ -64,4 +66,4 @@ const StatePicker = ({ stateInput, setStateInput }) => {
   );
 };
 
-export default StatePicker;
+export default StateFilter;
