@@ -4,13 +4,6 @@
   width: 100%;
 }
 
-.restaurant-card img {
-  border: 1px grey solid;
-  border-radius: 100%;
-  margin: 2em;
-  height: 8em;
-}
-
 .restaurant-card p {
   font-weight: lighter;
   margin: 0.2em;

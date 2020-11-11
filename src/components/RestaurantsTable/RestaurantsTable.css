@@ -2,21 +2,31 @@
   background-color: white;
   border-radius: 10px;
   height: 80vh;
-  width: 55vw;
   margin: 5em;
+  padding: 2em;
   overflow: auto;
+  width: 55vw;
 }
 
 .restaurant-list input {
   border: none;
   border-bottom: 1px black solid;
   height: 2em;
-  margin: 1em;
+  margin-bottom: 1em;
   width: 100%;
 }
 
 input:focus {
   outline: none;
+}
+
+.search-btns {
+  float: right;
+  margin-top: -1.5em;
+}
+
+.clear-btn {
+  margin-left: 1em;
 }
 
 ::-webkit-scrollbar {

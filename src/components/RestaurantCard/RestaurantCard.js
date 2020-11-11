@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
+import './RestaurantCard.css';
+
+import Collapsible from '../Collapsible/Collapsible';
 
 const RestaurantCard = (props) => {
   const [expanded, setExpanded] = useState(false);
+
   return (
-    <div class='restaurant-card'>
-      <div class='restaurant-info'>
+    <div className='restaurant-card'>
+      <div className='restaurant-info'>
         <h2>{props?.name}</h2>
-        {props?.address1}
-        {props?.attire}
-        {props?.city}
-        {props?.genre}
-        {props?.hours}
-        {props?.lat}
-        {props?.long}
-        {props?.state}
-        {props?.tags}
-        {props?.telephone}
-        {props?.website}
-        {props?.zip}
+        <p>{props?.telephone}</p>
+        <p>{props?.website}</p>
+        <p>{`${props?.address1}, ${props?.city}, ${props?.state} ${props?.zip}`}</p>
+        {expanded && <Collapsible {...props} />}
       </div>
       <div onClick={() => setExpanded(!expanded)} className='expand-btn'>
         {expanded ? '-' : '+'}
