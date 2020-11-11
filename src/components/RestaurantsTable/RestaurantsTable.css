@@ -1,0 +1,40 @@
+.restaurant-list {
+  background-color: white;
+  border-radius: 10px;
+  height: 80vh;
+  width: 55vw;
+  margin: 5em;
+  overflow: auto;
+}
+
+.restaurant-list input {
+  border: none;
+  border-bottom: 1px black solid;
+  height: 2em;
+  margin: 1em;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+}
+
+.expand-btn {
+  cursor: pointer;
+}
+
+.tag-list {
+  height: 2em;
+}
+
+.tag {
+  background-color: lightgrey;
+  border-radius: 5%;
+  display: inline-block;
+  padding: 0.5em;
+  margin: 0.5em;
+}

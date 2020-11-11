@@ -1,17 +1,15 @@
-import React, {
-    useState,
-    useEffect
-} from "react";
+import React from 'react';
+import RestaurantsTable from '../RestaurantsTable/RestaurantsTable';
 import './App.css';
 
-const App = () => {
-    const [restaurantsList, setRestaurantsList] = useState([]);
+import { getRestaurantData } from '../../shared/apiCalls';
 
-    return ( <
-        div className = "App" >
-        Hello <
-        /div>
-    );
-}
+const App = () => {
+  return (
+    <div className='App'>
+      <RestaurantsTable />
+    </div>
+  );
+};
 
 export default App;
