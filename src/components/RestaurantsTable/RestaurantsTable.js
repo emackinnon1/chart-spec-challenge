@@ -11,6 +11,30 @@ const RestaurantsList = ({ listOfRestaurants }) => {
   const [restaurantsToDisplay, setRestaurantsToDisplay] = useState([]);
   const [genres, setGenres] = useState([]);
   const [genreFilter, setGenreFilter] = useState('');
+  const [page, setPage] = useState(0);
+  const [pageEnd, setPageEnd] = useState(10);
+
+  const nextPage = () => {
+    const next = page + 10;
+    if (next >= restaurantsToDisplay.length) {
+      return;
+    }
+    setPage(next);
+    setPageEnd(next + 10);
+  };
+
+  const prevPage = () => {
+    const prev = page - 10;
+    if (prev <= 0) {
+      setPage(0);
+      setPageEnd(10);
+      return;
+    }
+    setPageEnd(page);
+    setPage(prev);
+  };
+
+  console.log(page, pageEnd);
 
   const createGenreList = (restaurants) => {
     let genres = [];
@@ -39,33 +63,29 @@ const RestaurantsList = ({ listOfRestaurants }) => {
     return false;
   };
 
-  const searchRestaurants = () => {
-    if (!searchTerm.length && !stateFilter.length && !genreFilter) {
-      return;
-    }
-
-    console.log(genreFilter);
-
-    let results;
-
+  const searchByState = (searchList) => {
     if (stateFilter.length) {
-      results = restaurantsToDisplay.filter(
+      return searchList.filter(
         (restaurant) => restaurant.state === stateFilter,
       );
-      setRestaurantsToDisplay(results);
     }
+    return searchList;
+  };
 
+  const searchByGenre = (searchList) => {
     if (genreFilter.length) {
-      results = restaurantsToDisplay.filter((restaurant) => {
+      return searchList.filter((restaurant) => {
         if (checkGenres(restaurant.genre, genreFilter)) {
           return restaurant;
         }
       });
-      setRestaurantsToDisplay(results);
     }
+    return searchList;
+  };
 
+  const searchBySearchTerm = (searchList) => {
     if (searchTerm.length) {
-      results = restaurantsToDisplay.filter((restaurant) => {
+      return searchList.filter((restaurant) => {
         if (compareTerms(restaurant.genre, searchTerm)) {
           return restaurant;
         } else if (compareTerms(restaurant.name, searchTerm)) {
@@ -75,6 +95,19 @@ const RestaurantsList = ({ listOfRestaurants }) => {
         }
       });
     }
+    return searchList;
+  };
+
+  const searchRestaurants = () => {
+    if (!searchTerm.length && !stateFilter.length && !genreFilter.length) {
+      return;
+    }
+
+    let results = listOfRestaurants;
+
+    results = searchByState(results);
+    results = searchByGenre(results);
+    results = searchBySearchTerm(results);
 
     setRestaurantsToDisplay(results);
   };
@@ -87,7 +120,16 @@ const RestaurantsList = ({ listOfRestaurants }) => {
   };
 
   const createCards = (list) => {
-    return list.map((r) => <RestaurantCard key={r.id} {...r} />);
+    if (list.length < 10) {
+      console.log('longlist');
+      // list
+      //   .slice(page, pageEnd)
+      //   .map((r) => <RestaurantCard key={r.id} {...r} />);
+      return list.map((r) => <RestaurantCard key={r.id} {...r} />);
+    }
+    return list
+      .slice(page, pageEnd)
+      .map((r) => <RestaurantCard key={r.id} {...r} />);
   };
 
   useEffect(() => {
@@ -96,6 +138,12 @@ const RestaurantsList = ({ listOfRestaurants }) => {
     }
     setGenres(createGenreList(listOfRestaurants));
   }, [listOfRestaurants]);
+
+  useEffect(() => {
+    if (searchTerm === '') {
+      clearSearch();
+    }
+  }, [searchTerm]);
 
   return (
     <div className='restaurant-list'>
@@ -141,6 +189,21 @@ const RestaurantsList = ({ listOfRestaurants }) => {
         createCards(restaurantsToDisplay)
       ) : (
         <p>No results found</p>
+      )}
+
+      {restaurantsToDisplay.length > 10 && (
+        <div className='page-btns'>
+          <button
+            disabled={page === 0 ? true : false}
+            onClick={() => prevPage()}>
+            Previous
+          </button>
+          <button
+            disabled={restaurantsToDisplay.length < pageEnd ? true : false}
+            onClick={() => nextPage()}>
+            Next
+          </button>
+        </div>
       )}
     </div>
   );
