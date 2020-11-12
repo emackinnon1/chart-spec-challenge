@@ -34,8 +34,6 @@ const RestaurantsList = ({ listOfRestaurants }) => {
     setPage(prev);
   };
 
-  console.log(page, pageEnd);
-
   const createGenreList = (restaurants) => {
     let genres = [];
     restaurants.forEach((r) => {
@@ -119,10 +117,6 @@ const RestaurantsList = ({ listOfRestaurants }) => {
 
   const createCards = (list) => {
     if (list.length < 10) {
-      console.log('longlist');
-      // list
-      //   .slice(page, pageEnd)
-      //   .map((r) => <RestaurantCard key={r.id} {...r} />);
       return list.map((r) => <RestaurantCard key={r.id} {...r} />);
     }
     return list
