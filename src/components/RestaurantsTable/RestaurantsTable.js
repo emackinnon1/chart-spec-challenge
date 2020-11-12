@@ -104,11 +104,9 @@ const RestaurantsList = ({ listOfRestaurants }) => {
     }
 
     let results = listOfRestaurants;
-
     results = searchByState(results);
     results = searchByGenre(results);
     results = searchBySearchTerm(results);
-
     setRestaurantsToDisplay(results);
   };
 
